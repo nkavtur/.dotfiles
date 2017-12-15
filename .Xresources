@@ -1,0 +1,68 @@
+! Base16 OceanicNext
+! Scheme: https://github.com/voronianski/oceanic-next-color-scheme
+URxvt*background:                     #1B2B34
+URxvt*foreground:                     #C0C5CE
+URxvt*cursorColor:                    #C0C5CE
+URxvt*scrollColor:                    #C0C5CE
+URxvt*highlightColor:                 #4F5B66
+URxvt*highlightTextColor:             #A7ADBA
+URxvt*color0:                         #1B2B34
+URxvt*color1:                         #EC5f67
+URxvt*color2:                         #99C794
+URxvt*color3:                         #FAC863
+URxvt*color4:                         #6699CC
+URxvt*color5:                         #C594C5
+URxvt*color6:                         #5FB3B3
+URxvt*color7:                         #C0C5CE
+URxvt*color8:                         #65737E
+URxvt*color9:                         #EC5f67
+URxvt*color10:                        #99C794
+URxvt*color11:                        #FAC863
+URxvt*color12:                        #6699CC
+URxvt*color13:                        #C594C5
+URxvt*color14:                        #5FB3B3
+URxvt*color15:                        #D8DEE9
+URxvt*color16:                        #F99157
+URxvt*color17:                        #AB7967
+URxvt*color18:                        #343D46
+URxvt*color19:                        #4F5B66
+URxvt*color20:                        #A7ADBA
+URxvt*color21:                        #CDD3DE
+
+
+
+!-------------------------------------------------------------------------------
+! Xft settings
+!-------------------------------------------------------------------------------
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+
+Xft.rgba:                   rgb
+Xft.hinting:                true
+Xft.hintstyle:              hintslight
+!URxvt.depth:                32
+URxvt.geometry:             90x30
+URxvt.transparent:          false
+URxvt.fading:               0
+URxvt.loginShell:           true
+URxvt.saveLines:            50
+URxvt.internalBorder:       0
+URxvt.lineSpace:            -1
+
+! Fonts
+URxvt.allow_bold:           false
+URxvt*font: xft:Meslo LG L DZ for Powerline:pixelsize=14
+URxvt*boldFont: xft:Meslo LG L DZ for Powerline:pixelsize=14
+
+! Fix font space
+URxvt*letterSpace: -1
+
+! Scrollbar
+URxvt.scrollStyle:          rxvt
+URxvt.scrollBar:            false
+
+! Perl extensions
+URxvt.perl-ext-common:      default,matcher
+URxvt.matcher.button:       1
+URxvt.urlLauncher:          firefox
+
