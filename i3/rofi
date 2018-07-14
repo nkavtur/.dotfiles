@@ -1,0 +1,10 @@
+rofi.font: System San Francisco Display 19 
+rofi.lines: 4
+rofi.eh: 2
+rofi.width: 100
+rofi.padding: 800
+rofi.bw: 0
+rofi.matching: fuzzy
+rofi.color-window: #CC2f343f, #2f343f, #00ffffff
+rofi.color-normal: #00ffffff, #f3f4f5, #00ffffff, #00ffffff, #9575cd 
+rofi.color-active: #00ffffff, #f3f4f5, #00ffffff, #00ffffff, #9575cd

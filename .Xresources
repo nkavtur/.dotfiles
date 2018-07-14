@@ -30,29 +30,34 @@ URxvt*color20:                        #A7ADBA
 URxvt*color21:                        #CDD3DE
 
 
-
 !-------------------------------------------------------------------------------
 ! Xft settings
 !-------------------------------------------------------------------------------
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
 
 Xft.rgba:                   rgb
 Xft.hinting:                true
 Xft.hintstyle:              hintslight
-!URxvt.depth:                32
+URxvt.depth:                32
 URxvt.geometry:             90x30
 URxvt.transparent:          false
 URxvt.fading:               0
 URxvt.loginShell:           true
-URxvt.saveLines:            50
+URxvt.saveLines:            1500
 URxvt.internalBorder:       0
 URxvt.lineSpace:            -1
 
 ! Fonts
 URxvt.allow_bold:           false
-URxvt*font: xft:Meslo LG L DZ for Powerline:pixelsize=14
-URxvt*boldFont: xft:Meslo LG L DZ for Powerline:pixelsize=14
+!URxvt*font: xft:Meslo LG L DZ for Powerline:pixelsize=14
+!URxvt*boldFont: xft:Meslo LG L DZ for Powerline:pixelsize=14
+URxvt*font: xft:Cousine for Powerline:pixelsize=15
+URxvt*boldFont: xft:Fira Code:pixelsize=14
 
 ! Fix font space
 URxvt*letterSpace: -1

@@ -20,7 +20,10 @@ source /home/mkautur/antigen.zsh
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
+antigen bundle zsh-users/zsh-completions src
 antigen bundle git
+antigen bundle dnf
+antigen bundle docker
 antigen bundle command-not-found
 antigen bundle djui/alias-tips
 antigen bundle zsh-users/zsh-autosuggestions
@@ -29,6 +32,8 @@ antigen bundle unixorn/autoupdate-antigen.zshplugin
 antigen bundle RobSis/zsh-completion-generator
 antigen bundle key-bindings
 antigen theme agnoster
+
+
 antigen apply
 
 
@@ -37,12 +42,19 @@ HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 bindkey -e
+
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/mkautur/.zshrc'
 
-autoload -Uz compinit
-compinit
+fpath=(~/.zsh/completion $fpath)
+fpath=(~/.oh-my-zsh/plugins/docker/_docker $fpath)
+autoload -U compinit && compinit
+
 # End of lines added by compinstall
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/mkautur/.sdkman"
+[[ -s "/home/mkautur/.sdkman/bin/sdkman-init.sh" ]] && source "/home/mkautur/.sdkman/bin/sdkman-init.sh"
