@@ -2,6 +2,13 @@
 
 set $mod Mod4
 
+mouse_warping none
+
+
+focus_follows_mouse no
+#for_window [class="^jetbrains-.+"][window_type=dialog] focus
+
+
 font pango:System San Francisco Display 12
 
 # thin borders
