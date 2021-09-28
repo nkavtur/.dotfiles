@@ -1,21 +1,4 @@
-bindkey "^[Od" emacs-backward-word   #control left
-bindkey "^[Oc" emacs-forward-word   #control right
-
-[[ -n "${key[Home]}"     ]]  && bindkey  "${key[Home]}"     beginning-of-line
-[[ -n "${key[End]}"      ]]  && bindkey  "${key[End]}"      end-of-line
-[[ -n "${key[Insert]}"   ]]  && bindkey  "${key[Insert]}"   overwrite-mode
-[[ -n "${key[Delete]}"   ]]  && bindkey  "${key[Delete]}"   delete-char
-[[ -n "${key[Up]}"       ]]  && bindkey  "${key[Up]}"       up-line-or-history
-[[ -n "${key[Down]}"     ]]  && bindkey  "${key[Down]}"     down-line-or-history
-[[ -n "${key[Left]}"     ]]  && bindkey  "${key[Left]}"     backward-char
-[[ -n "${key[Right]}"    ]]  && bindkey  "${key[Right]}"    forward-char
-[[ -n "${key[PageUp]}"   ]]  && bindkey  "${key[PageUp]}"   beginning-of-buffer-or-history
-[[ -n "${key[PageDown]}" ]]  && bindkey  "${key[PageDown]}" end-of-buffer-or-history
-
-
-cd 
-
-source /home/mkautur/antigen.zsh
+source $(brew --prefix)/share/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -31,30 +14,31 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle unixorn/autoupdate-antigen.zshplugin
 antigen bundle RobSis/zsh-completion-generator
 antigen bundle key-bindings
-antigen theme agnoster
-
-
+antigen theme robbyrussell
 antigen apply
 
-
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
-bindkey -e
-
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/mkautur/.zshrc'
-
-fpath=(~/.zsh/completion $fpath)
-fpath=(~/.oh-my-zsh/plugins/docker/_docker $fpath)
-autoload -U compinit && compinit
-
-# End of lines added by compinstall
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/nikolaikavtur/.sdkman"
+[[ -s "/Users/nikolaikavtur/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/nikolaikavtur/.sdkman/bin/sdkman-init.sh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/mkautur/.sdkman"
-[[ -s "/home/mkautur/.sdkman/bin/sdkman-init.sh" ]] && source "/home/mkautur/.sdkman/bin/sdkman-init.sh"
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/nikolaikavtur/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/nikolaikavtur/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/nikolaikavtur/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nikolaikavtur/google-cloud-sdk/completion.zsh.inc'; fi
+
+source <(kubectl completion zsh)
+alias k=kubectl
+complete -F __start_kubectl k
+
+alias k=kubectl
+
+complete -F __start_kubectl k
+autoload -U +X compinit && compinit
+source <(kubectl completion zsh)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
