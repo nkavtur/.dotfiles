@@ -1,4 +1,5 @@
-source $(brew --prefix)/share/antigen/antigen.zsh
+eval "$(pyenv init --path)"
+source ~/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -7,12 +8,12 @@ antigen bundle zsh-users/zsh-completions src
 antigen bundle git
 antigen bundle dnf
 antigen bundle docker
+antigen bundle aws
 antigen bundle command-not-found
 antigen bundle djui/alias-tips
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle unixorn/autoupdate-antigen.zshplugin
-antigen bundle RobSis/zsh-completion-generator
 antigen bundle key-bindings
 antigen theme robbyrussell
 antigen apply
@@ -23,22 +24,11 @@ export SDKMAN_DIR="/Users/nikolaikavtur/.sdkman"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/nikolaikavtur/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/nikolaikavtur/google-cloud-sdk/path.zsh.inc'; fi
+alias docker="/Applications/Docker.app/Contents/Resources/bin/docker"
 
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/nikolaikavtur/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nikolaikavtur/google-cloud-sdk/completion.zsh.inc'; fi
+alias k="kubectl"
 
-source <(kubectl completion zsh)
-alias k=kubectl
-complete -F __start_kubectl k
-
-alias k=kubectl
-
-complete -F __start_kubectl k
-autoload -U +X compinit && compinit
+autoload -Uz compinit
+compinit
 source <(kubectl completion zsh)
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
