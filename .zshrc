@@ -1,34 +1,28 @@
-eval "$(pyenv init --path)"
-source ~/antigen.zsh
+source ~/.antidote/antidote.zsh
 
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
+autoload -Uz compinit
+compinit
 
-antigen bundle zsh-users/zsh-completions src
-antigen bundle git
-antigen bundle dnf
-antigen bundle docker
-antigen bundle aws
-antigen bundle command-not-found
-antigen bundle djui/alias-tips
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle unixorn/autoupdate-antigen.zshplugin
-antigen bundle key-bindings
-antigen theme robbyrussell
-antigen apply
+# load antidote plugins
+antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
+
+# enable starship promt (`brew install starship` first) :
+# eval "$(starship init zsh)"
+
+# lazy loading for nvm
+zstyle ':omz:plugins:nvm' lazy yes
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/nikolaikavtur/.sdkman"
 [[ -s "/Users/nikolaikavtur/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/nikolaikavtur/.sdkman/bin/sdkman-init.sh"
 
+# enable fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# aliases
 alias docker="/Applications/Docker.app/Contents/Resources/bin/docker"
-
+alias code="open -a Visual\ Studio\ Code.app"
 alias k="kubectl"
 
-autoload -Uz compinit
-compinit
+# Source kubectl completion script
 source <(kubectl completion zsh)
-

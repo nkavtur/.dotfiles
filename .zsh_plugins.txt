@@ -1,0 +1,16 @@
+djui/alias-tips
+sindresorhus/pure   # enhance your prompt
+
+# you can even use Oh My Zsh plugins
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/extract
+ohmyzsh/ohmyzsh path:plugins/nvm 
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/docker
+
+# add fish-like features
+zsh-users/zsh-syntax-highlighting kind:defer
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-history-substring-search kind:defer
+zsh-users/zsh-completions kind:defer
+
