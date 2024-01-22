@@ -20,13 +20,13 @@ Before you begin, ensure you have the following dependencies installed:
 
     ```bash
     git clone https://github.com/nkavtur/dotfiles.git ~/.dotfiles
-    cd dotfiles
+    cd ~/.dotfiles
     ```
 
 2. **Run the installation script:**
 
     ```bash
-   ./.dotfiles/install.sh
+   ~/.dotfiles/install.sh
     ```
 
    This script will symlink the dotfiles to your home directory, creating backups if necessary.
