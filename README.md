@@ -11,7 +11,8 @@ Before you begin, ensure you have the following dependencies installed:
 - [Hyper Terminal](https://hyper.is/)
 - [Homebrew](https://brew.sh/)
 - [Zsh](https://www.zsh.org/)
-- [Antidote](https://antidote.sh/)
+- [Antidote](https://github.com/mattmc3/antidote)
+- Node.js (preferable via [nvm](https://github.com/nvm-sh/nvm))
 - [Nerd Fonts](https://www.nerdfonts.com/)
 
 ## Installation
