@@ -10,7 +10,7 @@ module.exports = {
         // default font size in pixels for all tabs
         fontSize: 16,
         // font family with optional fallbacks
-        fontFamily: '"Hack Nerd Font"',
+        fontFamily: '"Hack Nerd Font", Menlo',
         // default font weight: 'normal' or 'bold'
         fontWeight: 'normal',
         // font weight for bold characters: 'normal' or 'bold'
@@ -101,7 +101,7 @@ module.exports = {
         // Supported Options:
         //  1. 'SOUND' -> Enables the bell as a sound
         //  2. false: turns off the bell
-        bell: 'SOUND',
+        bell: false,
         // An absolute file path to a sound file on the machine.
         // bellSoundURL: '/path/to/sound/file',
         // if `true` (without backticks and without quotes), selected text will automatically be copied to the clipboard
@@ -135,7 +135,11 @@ module.exports = {
             trafficButtons: true,
             tabIconsColored: true,
             activityColor: 'salmon',
-        }
+        },
+
+        modifierKeys: {
+            altIsMeta: false,
+        },    
     },
     // a list of plugins to fetch and install from npm
     // format: [@org/]project[#version]
@@ -149,6 +153,7 @@ module.exports = {
         'hyper-pane',
         'hyper-snazzy',
         // 'hyperterm-atom-dark',
+        // 'hyper-solarized-light',
         'hyper-tabs-enhanced',
     ],
 

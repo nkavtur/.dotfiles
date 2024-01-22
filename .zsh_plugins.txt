@@ -1,12 +1,13 @@
+# install third party plugins
 djui/alias-tips
 sindresorhus/pure   # enhance your prompt
+belak/zsh-utils path:completion
 
 # you can even use Oh My Zsh plugins
 ohmyzsh/ohmyzsh path:lib
-ohmyzsh/ohmyzsh path:plugins/extract
-ohmyzsh/ohmyzsh path:plugins/nvm 
-ohmyzsh/ohmyzsh path:plugins/git
-ohmyzsh/ohmyzsh path:plugins/docker
+ohmyzsh/ohmyzsh path:plugins/extract kind:defer
+ohmyzsh/ohmyzsh path:plugins/nvm kind:defer
+ohmyzsh/ohmyzsh path:plugins/git kind:defer
 
 # add fish-like features
 zsh-users/zsh-syntax-highlighting kind:defer

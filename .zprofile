@@ -1,4 +1,5 @@
-eval "$(pyenv init --path)"
+# set env variables
+export PATH="$(go env GOPATH)/bin:$PATH"
 
 # # Setting PATH for Python 3.7
 # # The original version is saved in .zprofile.pysave
