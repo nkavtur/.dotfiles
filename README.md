@@ -13,7 +13,7 @@ Before you begin, ensure you have the following dependencies installed:
 - [Zsh](https://www.zsh.org/)
 - [Antidote](https://github.com/mattmc3/antidote)
 - Node.js (preferable via [nvm](https://github.com/nvm-sh/nvm))
-- [Nerd Fonts](https://www.nerdfonts.com/)
+- [Nerd Fonts]([https://www.nerdfonts.com/](https://github.com/ryanoasis/nerd-fonts))
 
 ## Installation
 
