@@ -8,7 +8,7 @@ module.exports = {
         // or `'canary'` for less polished but more frequent updates
         updateChannel: 'stable',
         // default font size in pixels for all tabs
-        fontSize: 17,
+        fontSize: 16,
         // font family with optional fallbacks
         fontFamily: '"Hack Nerd Font"',
         // default font weight: 'normal' or 'bold'
@@ -131,13 +131,11 @@ module.exports = {
         preserveCWD: true,
         // for advanced config flags please refer to https://hyper.is/#cfg
 
-        hyperSearchUI: {
-            inputBorderRadius: 2,
-            buttonBorderRadius: 2,
-            buttonMargin: 2,
-            prevButton: '←',
-            nextButton: '→'    
-        },
+        hyperTabs: {
+            trafficButtons: true,
+            tabIconsColored: true,
+            activityColor: 'salmon',
+        }
     },
     // a list of plugins to fetch and install from npm
     // format: [@org/]project[#version]
@@ -148,13 +146,10 @@ module.exports = {
     plugins: [
         'hypercwd',
         'hyperterm-safepaste',
-        'hyper-tab-icons',
-        'hyper-hide-title',
         'hyper-pane',
         'hyper-snazzy',
         // 'hyperterm-atom-dark',
-        'hyper-atom-dark-transparent',
-        'hyper-search'
+        'hyper-tabs-enhanced',
     ],
 
     // in development, you can create a directory under
@@ -162,7 +157,7 @@ module.exports = {
     // to load it and avoid it being `npm install`ed
     localPlugins: [],
     keymaps: {
-        // Example
+        // Example  
         // 'window:devtools': 'cmd+alt+o',
     },
 };
