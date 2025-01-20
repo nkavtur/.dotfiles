@@ -1,6 +1,21 @@
-theme = "rose-pine"
-font-size = 17
+#theme = "rose-pine"
+#theme = "cyberpunk"
+#theme = "CyberpunkScarletProtocol"
+#theme = "tokyonight"
+#theme = "tokyonight_moon"
+#theme = "tokyonight-day"
+#theme = "synthwave-everything"
+#theme = "synthwave"
+#theme = "SpaceGray Eighties Dull"
+#theme = "catppuccin-macchiato"
+theme = "catppuccin-mocha"
+
+selection-background = #626880
+selection-foreground = #c6d0f5
+
+font-size = 16
 font-family = "JetBrains Mono"
 window-inherit-font-size = false
 
-
+macos-option-as-alt = true
+keybind = alt+delete=text:\x1b\x5b\x33\x3b\x35\x7e
