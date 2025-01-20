@@ -14,6 +14,9 @@ set -o ignoreeof
 autoload -U +X compinit && compinit
 . <( zellij setup --generate-completion zsh | sed -Ee 's/^(_(zellij) ).*/compdef \1\2/' )
 
+# enable 'pure' prompt (installed from zsh_plugins)
+autoload -Uz promptinit && promptinit && prompt pure
+
 # Dependencies
 [ -f ~/.sdkman ] && source "~/.sdkman/bin/sdkman-init.sh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
