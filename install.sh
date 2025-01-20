@@ -19,7 +19,14 @@ user_input() {
 
 create_symlink() {
     source_file="$dotfiles_dir/$1"
-    target_file="${HOME}/test/$1"
+    target_file="${HOME}/$1"
+
+    # Ensure the target directory exists
+    target_dir=$(dirname "$target_file")
+    if [ ! -d "$target_dir" ]; then
+        mkdir -p "$target_dir"
+        info "📁 Created missing directory: $target_dir"
+    fi
 
     # Backup existing file if it exists
     if [ -e "$target_file" ]; then
@@ -29,7 +36,6 @@ create_symlink() {
 
     # Create symlink
     ln -s "$source_file" "$target_file"
-    echo
     info "🔗 Symlink created: $source_file -> $target_file"
 }
 
@@ -40,7 +46,7 @@ main() {
     [ -d "$dotfiles_dir" ] || error "Dotfiles directory not found. Make sure it exists at $dotfiles_dir."
 
     # List of files to symlink
-    files=(".zshrc" ".zprofile" ".zsh_plugins.txt" ".hyper.js")
+    files=(".zshrc" ".zprofile" ".zsh_plugins.txt" ".config/ghostty/config" ".config/zellij/config.kdl")
 
     # Ask user for confirmation
     info "🚀 This will create symlinks for the following files in your home directory:"
