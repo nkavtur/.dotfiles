@@ -20,7 +20,7 @@ Before you begin, ensure you have the following dependencies installed:
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/nkavtur/dotfiles.git ~/.dotfiles
+    git clone https://github.com/nkavtur/.dotfiles.git
     cd ~/.dotfiles
     ```
 
