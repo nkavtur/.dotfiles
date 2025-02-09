@@ -1,39 +1,20 @@
 # Dotfiles
 
-![Terminal Screenshot](static/terminal.png)
+This repository contains my personal dotfiles. Feel free to reuse them.
 
-This repository contains my personal dotfiles, including configurations for zsh, Hyper terminal, and various tools. Feel free to explore, fork, and use them to customize your own development environment.
+Dotfiles are managed with `stow`. To set them up, run the following from the `.dotfiles` root directory:
 
-## Prerequisites
+```sh
+stow <module>
+```
 
-Before you begin, ensure you have the following dependencies installed:
+Where `<module>` is a folder name in this repo (e.g., `zsh`, `ghostty`, etc.).  
+`stow` will create the necessary symlinks in the appropriate locations.
 
-- [Hyper Terminal](https://hyper.is/)
-- [Homebrew](https://brew.sh/)
-- [Zsh](https://www.zsh.org/)
-- [Antidote](https://github.com/mattmc3/antidote)
-- Node.js (preferable via [nvm](https://github.com/nvm-sh/nvm))
-- [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
+### Zsh Setup
 
-## Installation
+Zsh configurations are included in this repository. Plugins are managed with `antidote`, so install it first:
 
-1. **Clone the repository:**
-
-    ```bash
-    git clone https://github.com/nkavtur/.dotfiles.git
-    cd ~/.dotfiles
-    ```
-
-2. **Run the installation script:**
-
-    ```bash
-   ~/.dotfiles/install.sh
-    ```
-
-   This script will symlink the dotfiles to your home directory, creating backups if necessary.
-
-3. **Restart your terminal or reload your shell.**
-
-    ```bash
-    source ~/.zshrc
-    ```
+```sh
+brew install antidote
+```
