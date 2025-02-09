@@ -36,8 +36,10 @@ alias code="open -a Visual\ Studio\ Code.app"
 alias ws="open -a /Applications/Webstorm.app"
 alias k="kubectl"
 alias z="zellij"
-alias l="layer0"
 alias cat="bat"
 alias ls="eza --icons=auto"
 alias ping="gping"
 unalias gk >/dev/null 2>/dev/null
+
+# source work settings
+source ~/.work.zsh
