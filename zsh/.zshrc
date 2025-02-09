@@ -21,12 +21,23 @@ autoload -Uz promptinit && promptinit && prompt pure
 [ -f ~/.sdkman ] && source "~/.sdkman/bin/sdkman-init.sh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+eval "$(zoxide init zsh --cmd cd)"
+
+# diff-so-fancy
+git config --global core.pager "diff-so-fancy | less --tabs=4 -RF"
+git config --global interactive.diffFilter "diff-so-fancy --patch"
+
 # Source kubectl completion script
 command -v kubectl &> /dev/null && source <(kubectl completion zsh) || echo 'error'
 
 # alises
 alias -g pretty="| pino-pretty"
 alias code="open -a Visual\ Studio\ Code.app"
-alias webstorm="open -a /Applications/Webstorm.app"
+alias ws="open -a /Applications/Webstorm.app"
 alias k="kubectl"
 alias z="zellij"
+alias l="layer0"
+alias cat="bat"
+alias ls="eza --icons=auto"
+alias ping="gping"
+unalias gk >/dev/null 2>/dev/null
