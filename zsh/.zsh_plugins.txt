@@ -10,6 +10,7 @@ ohmyzsh/ohmyzsh path:lib
 ohmyzsh/ohmyzsh path:plugins/extract kind:defer
 ohmyzsh/ohmyzsh path:plugins/nvm kind:defer
 ohmyzsh/ohmyzsh path:plugins/git kind:defer
+ohmyzsh/ohmyzsh path:plugins/nvm kind:defer
 
 # popular fish-like plugins
 mattmc3/zfunctions

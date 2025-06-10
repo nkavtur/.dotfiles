@@ -11,7 +11,6 @@ theme = "catppuccin-macchiato"
 #theme = "catppuccin-mocha"
 
 selection-background = #626880
-selection-foreground = #c6d0f5
 
 font-size = 16
 font-family = "JetBrains Mono"

@@ -41,5 +41,6 @@ alias ls="eza --icons=auto"
 alias ping="gping"
 unalias gk >/dev/null 2>/dev/null
 
-# source work settings
-source ~/.work.zsh
+# history
+HISTSIZE=100000
+SAVEHIST=100000
