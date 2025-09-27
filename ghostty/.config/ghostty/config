@@ -16,4 +16,4 @@ font-size = 16
 font-family = "JetBrains Mono"
 window-inherit-font-size = false
 
-keybind = alt+delete=text:\x1b\x5b\x33\x3b\x35\x7e
+keybind = option+backspace=text:\x1b\x7f
