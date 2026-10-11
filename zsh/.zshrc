@@ -1,3 +1,10 @@
+# Auto-start or attach to Zellij session
+export ZELLIJ_SOCKET_DIR="${ZELLIJ_SOCKET_DIR:-/tmp/zellij}"
+if [[ -o interactive ]] && [[ -t 0 ]] && [[ -z "$ZELLIJ" ]] && (( $+commands[zellij] )); then
+  SESSION_NAME="${USER}@$(hostname)"
+  zellij attach -c "$SESSION_NAME"
+fi
+
 # source antidote
 source ~/.antidote/antidote.zsh
 
@@ -7,7 +14,7 @@ antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 # lazy loading for nvm
 zstyle ':omz:plugins:nvm' lazy yes
 
-# disable Ctrd + d to close terminal window
+# disable Ctrl + d to close terminal window
 set -o ignoreeof
 
 # enable zellij completions (https://github.com/zellij-org/zellij/issues/1933)
@@ -28,7 +35,9 @@ git config --global core.pager "diff-so-fancy | less --tabs=4 -RF"
 git config --global interactive.diffFilter "diff-so-fancy --patch"
 
 # Source kubectl completion script
-command -v kubectl &> /dev/null && source <(kubectl completion zsh) || echo 'error'
+if (( $+commands[kubectl] )); then
+  source <(kubectl completion zsh)
+fi
 
 # alises
 alias -g pretty="| pino-pretty"
