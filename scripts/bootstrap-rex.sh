@@ -42,6 +42,12 @@ fi
 for pkg in stow fzf; do
   if have "$pkg"; then echo "   $pkg: ok"; else say "Installing $pkg"; run brew install "$pkg"; fi
 done
+# the fzf fallback popup needs fzf 0.45 or newer
+if have fzf; then
+  fzf_minor="$(fzf --version 2>/dev/null | awk '{print $1}' | cut -d. -f2)"
+  case "$fzf_minor" in ''|*[!0-9]*) fzf_minor=0 ;; esac
+  if [ "$fzf_minor" -lt 45 ]; then say "fzf is too old ($(fzf --version | awk '{print $1}')): upgrading"; run brew upgrade fzf; fi
+fi
 if brew list --cask font-jetbrains-mono >/dev/null 2>&1 || ls ~/Library/Fonts /Library/Fonts 2>/dev/null | grep -qi 'JetBrainsMono'; then
   echo "   JetBrains Mono: ok"
 else
