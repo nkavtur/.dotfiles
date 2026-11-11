@@ -1,4 +1,10 @@
 # runtime files written by the tab picker
 tab-mru.txt
-.tab-picker.state
+tabs-cache.json
+.tab-picker.*
+.tab-watcher.lock
+*.tmp
 *.bak*
+# built binary and third-party clones (see README)
+bin/
+rex-sessionizer/

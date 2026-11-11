@@ -333,3 +333,7 @@ rex.bind("tmux/o", "pane.focus_next")
 
 -- Tab picker (cmd+e)
 require("tab_picker")
+
+-- Sessionizer: cmd+o fuzzy-picks a project under ~/workspace and opens/creates its session
+require("rex-sessionizer").setup{ work_dir = "~/workspace" }
+rex.bind("cmd+o", "sessionizer")

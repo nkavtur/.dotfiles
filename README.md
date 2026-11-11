@@ -21,16 +21,14 @@ brew install antidote
 
 ### Rex Setup
 
-[Rex](https://www.superlogical.com/rex) config lives in the `rex` module: `init.lua` plus a `cmd+e` tab picker (`tab_picker.lua`, `tab-picker.sh`). The picker needs `fzf`:
+[Rex](https://www.superlogical.com/rex) config lives in the `rex` module: `init.lua` plus the `cmd+e` tab picker (`tab_picker.lua`, `tab-picker.sh`, `tab-dump.lua`, `tab-watcher.lua`). The picker's UI is a small Rust program, built from [rex-tab-picker](https://github.com/nkavtur/rex-tab-picker) (private); without it the picker falls back to an fzf popup:
 
 ```sh
 brew install fzf
-```
-
-Rex creates `~/.config/rex` itself, so move any existing one aside before stowing, then reload:
-
-```sh
-mv ~/.config/rex ~/.config/rex.bak
+mv ~/.config/rex ~/.config/rex.bak   # Rex creates ~/.config/rex itself
 stow rex
+git clone https://github.com/nkavtur/rex-tab-picker /tmp/rex-tab-picker && (cd /tmp/rex-tab-picker && cargo build --release)
+mkdir -p ~/.config/rex/bin && cp /tmp/rex-tab-picker/target/release/rex-tabs ~/.config/rex/bin/
+git clone https://github.com/haxybaxy/rex-sessionizer ~/.config/rex/rex-sessionizer   # optional, cmd+o
 rex config check && rex config reload
 ```
