@@ -1,0 +1,20 @@
+diff --git a/sessionizer.sh b/sessionizer.sh
+index a6cac5b..f1336ac 100755
+--- a/sessionizer.sh
++++ b/sessionizer.sh
+@@ -73,12 +73,9 @@ get_top_level_directories() {
+ find_current_directory() {
+     local label=$1
+     [[ -z $label ]] && return 0
+-    find "$work_dir" -mindepth 1 -maxdepth 2 -type d 2>/dev/null | while IFS= read -r dir; do
+-        if [[ "$(basename "$dir")" == "$label" ]]; then
+-            echo "$dir"
+-            return
+-        fi
+-    done
++    # One find call. (The upstream version spawned `basename` for every directory,
++    # about 2-5 s with a few hundred projects.)
++    find "$work_dir" -mindepth 1 -maxdepth 2 -type d -name "$label" -print -quit 2>/dev/null || true
+ }
+ 
+ find_work_directories() {

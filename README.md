@@ -21,14 +21,12 @@ brew install antidote
 
 ### Rex Setup
 
-[Rex](https://www.superlogical.com/rex) config lives in the `rex` module: `init.lua` plus the `cmd+e` tab picker (`tab_picker.lua`, `tab-picker.sh`, `tab-dump.lua`, `tab-watcher.lua`). The picker's UI is a small Rust program, built from [rex-tab-picker](https://github.com/nkavtur/rex-tab-picker) (private); without it the picker falls back to an fzf popup:
+[Rex](https://www.superlogical.com/rex) config lives in the `rex` module: `init.lua` plus the `cmd+e` tab picker. On a new Mac, install Rex and run:
 
 ```sh
-brew install fzf
-mv ~/.config/rex ~/.config/rex.bak   # Rex creates ~/.config/rex itself
-stow rex
-git clone https://github.com/nkavtur/rex-tab-picker /tmp/rex-tab-picker && (cd /tmp/rex-tab-picker && cargo build --release)
-mkdir -p ~/.config/rex/bin && cp /tmp/rex-tab-picker/target/release/rex-tabs ~/.config/rex/bin/
-git clone https://github.com/haxybaxy/rex-sessionizer ~/.config/rex/rex-sessionizer   # optional, cmd+o
-rex config check && rex config reload
+scripts/bootstrap-rex.sh            # --dry-run to preview, --skip-ui to use the fzf fallback
 ```
+
+It installs `stow` and `fzf`, links the module (an existing `~/.config/rex` is moved aside, never deleted), builds the picker's Rust UI from the private [rex-tab-picker](https://github.com/nkavtur/rex-tab-picker) repo (needs `gh auth login` and a Rust toolchain, otherwise the picker falls back to fzf), installs [rex-sessionizer](https://github.com/haxybaxy/rex-sessionizer) at a pinned commit with `scripts/patches/rex-sessionizer-fast-find.patch` applied, then reloads the Rex config. Safe to run again.
+
+Still manual: Rex → Settings → Server → Remote Control (only the sessionizer's `cmd+o` needs it), and `rex skill setup` for Claude Code.
