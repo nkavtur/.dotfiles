@@ -18,3 +18,19 @@ Zsh configurations are included in this repository. Plugins are managed with `an
 ```sh
 brew install antidote
 ```
+
+### Rex Setup
+
+[Rex](https://www.superlogical.com/rex) config lives in the `rex` module: `init.lua` plus a `cmd+e` tab picker (`tab_picker.lua`, `tab-picker.sh`). The picker needs `fzf`:
+
+```sh
+brew install fzf
+```
+
+Rex creates `~/.config/rex` itself, so move any existing one aside before stowing, then reload:
+
+```sh
+mv ~/.config/rex ~/.config/rex.bak
+stow rex
+rex config check && rex config reload
+```

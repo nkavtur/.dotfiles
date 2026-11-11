@@ -1,0 +1,4 @@
+# runtime files written by the tab picker
+tab-mru.txt
+.tab-picker.state
+*.bak*
