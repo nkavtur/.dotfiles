@@ -7,5 +7,6 @@ font-size = 17
 font-family = "JetBrains Mono"
 window-inherit-font-size = false
 
-keybind = option+backspace=text:\x1b\x7f
+macos-option-as-alt = true
 
+keybind = option+backspace=text:\x1b\x7f

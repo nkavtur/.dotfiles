@@ -1,9 +1,4 @@
 # Auto-start or attach to Zellij session
-export ZELLIJ_SOCKET_DIR="${ZELLIJ_SOCKET_DIR:-/tmp/zellij}"
-if [[ -o interactive ]] && [[ -t 0 ]] && [[ -z "$ZELLIJ" ]] && (( $+commands[zellij] )); then
-  SESSION_NAME="${USER}@$(hostname)"
-  zellij attach -c "$SESSION_NAME"
-fi
 
 # source antidote
 source ~/.antidote/antidote.zsh
