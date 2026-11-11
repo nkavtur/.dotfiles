@@ -42,6 +42,11 @@ fi
 for pkg in stow fzf; do
   if have "$pkg"; then echo "   $pkg: ok"; else say "Installing $pkg"; run brew install "$pkg"; fi
 done
+if brew list --cask font-jetbrains-mono >/dev/null 2>&1 || ls ~/Library/Fonts /Library/Fonts 2>/dev/null | grep -qi 'JetBrainsMono'; then
+  echo "   JetBrains Mono: ok"
+else
+  say "Installing the JetBrains Mono font (Rex and Ghostty use it)"; run brew install --cask font-jetbrains-mono
+fi
 have rex || warn "the \`rex\` command is not on PATH yet: install Rex first (the config still gets linked)."
 
 # ---- 2. link the rex module --------------------------------------------------------------------
@@ -113,6 +118,7 @@ fi
 cat <<'NOTE'
 
 Done. Still to do by hand:
+  * Rex app look (sidebar, theme, fonts): quit Rex, run  scripts/rex-settings.sh apply  and reopen it.
   * Rex > Settings > Server > Remote Control: turn it on if you want cmd+o (sessionizer) to
     switch sessions. The tab picker (cmd+e) does not need it.
   * Projects folder: the sessionizer lists the folders under ~/workspace (change work_dir in

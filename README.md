@@ -29,4 +29,6 @@ scripts/bootstrap-rex.sh            # --dry-run to preview, --skip-ui to use the
 
 It installs `stow` and `fzf`, links the module (an existing `~/.config/rex` is moved aside, never deleted), builds the picker's Rust UI from the private [rex-tab-picker](https://github.com/nkavtur/rex-tab-picker) repo (needs `gh auth login` and a Rust toolchain, otherwise the picker falls back to fzf), installs [rex-sessionizer](https://github.com/haxybaxy/rex-sessionizer) at a pinned commit with `scripts/patches/rex-sessionizer-fast-find.patch` applied, then reloads the Rex config. Safe to run again.
 
+The Rex **app settings** (vertical sidebar on the left, theme, fonts, ...) are stored by macOS, not in `init.lua`. They are saved in `scripts/rex-settings.conf`: quit Rex, run `scripts/rex-settings.sh apply`, reopen it. (`scripts/rex-settings.sh export` re-saves this Mac's settings.)
+
 Still manual: Rex → Settings → Server → Remote Control (only the sessionizer's `cmd+o` needs it), and `rex skill setup` for Claude Code.
