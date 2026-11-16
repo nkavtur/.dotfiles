@@ -44,8 +44,6 @@ rex.bind("shift+cmd+k", "session.switch")
 
 -- iTerm2 bindings
 rex.bind("alt+backspace", "pane.send_key", { key = "ctrl+w" })
-rex.bind("cmd+right", "pane.focus_next")
-rex.bind("cmd+left", "pane.focus_previous")
 rex.bind("shift+cmd+left", "client.tab.move", { direction = "backward" })
 rex.bind("shift+cmd+right", "client.tab.move", { direction = "forward" })
 
@@ -66,19 +64,45 @@ rex.bind("alt+l", "pane.focus", { direction = "right" })
 rex.bind("alt+j", "pane.focus", { direction = "down" })
 rex.bind("alt+k", "pane.focus", { direction = "up" })
 
+-- Simplified navigation: option+cmd+up/down = tabs, cmd+arrows = panes.
+-- Repeated per exclusive mode so it keeps working inside them.
+for _, prefix in ipairs({ "", "resize/", "pane/", "move/" }) do
+  rex.bind(prefix .. "alt+cmd+up", "client.tab.previous")
+  rex.bind(prefix .. "alt+cmd+down", "client.tab.next")
+  rex.bind(prefix .. "cmd+left", "pane.focus", { direction = "left" })
+  rex.bind(prefix .. "cmd+right", "pane.focus", { direction = "right" })
+  rex.bind(prefix .. "cmd+up", "pane.focus", { direction = "up" })
+  rex.bind(prefix .. "cmd+down", "pane.focus", { direction = "down" })
+end
+
 -- Locked mode bindings
 rex.bind("locked/ctrl+g", "client.mode.exit_all")
 
 -- Resize mode bindings
 rex.bind("resize/ctrl+n", "client.mode.exit_all")
-rex.bind("resize/h", "pane.resize", { direction = "left" })
-rex.bind("resize/left", "pane.resize", { direction = "left" })
-rex.bind("resize/j", "pane.resize", { direction = "down" })
-rex.bind("resize/down", "pane.resize", { direction = "down" })
-rex.bind("resize/k", "pane.resize", { direction = "up" })
-rex.bind("resize/up", "pane.resize", { direction = "up" })
-rex.bind("resize/l", "pane.resize", { direction = "right" })
-rex.bind("resize/right", "pane.resize", { direction = "right" })
+-- Arrows/hjkl grow toward a direction, shift+arrows/HJKL shrink (Zellij). Works on floating panes too.
+local function resize_key(key, dir, op)
+  local name = "resize_" .. op .. "_" .. dir
+  if not resize_defined then resize_defined = {} end
+  if not resize_defined[name] then
+    resize_defined[name] = true
+    rex.action{
+      name = name, title = (op == "grow" and "Grow " or "Shrink ") .. dir,
+      run = function(ctx)
+        local p = rex.exec.start({ os.getenv("HOME") .. "/.config/rex/bin/rex-resize",
+          dir, op, ctx.session_id, ctx.block_id, ctx.client_id })
+        p:wait()
+      end,
+    }
+  end
+  rex.bind("resize/" .. key, name)
+end
+for _, d in ipairs({ { "h", "left" }, { "j", "down" }, { "k", "up" }, { "l", "right" } }) do
+  resize_key(d[1], d[2], "grow")
+  resize_key("shift+" .. d[1], d[2], "shrink")
+  resize_key(d[2], d[2], "grow")
+  resize_key("shift+" .. d[2], d[2], "shrink")
+end
 rex.bind("resize/enter", "client.mode.exit_all")
 rex.bind("resize/esc", "client.mode.exit_all")
 rex.bind("resize/ctrl+g", "client.mode.enter", { name = "locked" })
@@ -294,11 +318,28 @@ rex.bind("tmux/alt+k", "pane.focus", { direction = "up" })
 rex.bind("pane/p", "pane.focus_next")
 rex.bind("pane/;", "pane.focus_previous")
 once("pane/c", "Rename Pane", "pane.rename", nil)
-once("pane/w", "New Floating Pane", "pane.new_floating", nil)
+once("pane/w", "Toggle Floating Panes", "pane.minimize_all_floating", nil)
+once("pane/shift+w", "New Floating Pane", "pane.new_floating", nil)
 once("pane/e", "Float Pane", "pane.float", nil)
 
 -- Tab mode: break pane out into its own tab
 once("tab/b", "Move Pane to New Tab", "pane.move_to_new_tab", nil)
+
+-- Tab mode: send pane to the previous/next tab (Zellij's [ and ])
+local function pane_to_tab(key, title, dir)
+  local name = "pane_to_tab_" .. dir
+  rex.action{
+    name = name, title = title,
+    run = function(ctx)
+      local p = rex.exec.start({ os.getenv("HOME") .. "/.config/rex/bin/rex-pane-to-tab", dir, ctx.session_id, ctx.block_id })
+      p:wait()
+      rex.client.queue("client.mode.exit_all")
+    end,
+  }
+  rex.bind(key, name)
+end
+pane_to_tab("tab/[", "Move Pane to Previous Tab", "prev")
+pane_to_tab("tab/]", "Move Pane to Next Tab", "next")
 
 -- Scroll mode: paging, prompt jumping, find (Zellij's scroll keys)
 rex.bind("scroll/ctrl+f", "client.scroll.page_down")
@@ -333,7 +374,3 @@ rex.bind("tmux/o", "pane.focus_next")
 
 -- Tab picker (cmd+e)
 require("tab_picker")
-
--- Sessionizer: cmd+o fuzzy-picks a project under ~/workspace and opens/creates its session
-require("rex-sessionizer").setup{ work_dir = "~/workspace" }
-rex.bind("cmd+o", "sessionizer")
