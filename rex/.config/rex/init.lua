@@ -64,15 +64,80 @@ rex.bind("alt+l", "pane.focus", { direction = "right" })
 rex.bind("alt+j", "pane.focus", { direction = "down" })
 rex.bind("alt+k", "pane.focus", { direction = "up" })
 
--- Simplified navigation: option+cmd+up/down = tabs, cmd+arrows = panes.
+-- Simplified navigation: option+cmd+up/down = tabs, option+arrows = panes by screen direction,
+-- wrapping to the opposite edge when there is no pane that way.
+local function leaves(node, out)
+  if node.block_id then out[#out + 1] = node
+  else
+    local sp = node.split or node
+    if sp.before then leaves(sp.before, out) end
+    if sp.after then leaves(sp.after, out) end
+  end
+  return out
+end
+
+local function focus_wrap(ctx, dir)
+  local view = rex.session.view{ session_id = ctx.session_id }
+  if not view then return end
+  local list
+  for _, w in ipairs(view.windows or {}) do
+    local tiled = w.layers and w.layers[1]
+    if tiled and tiled.layout then
+      local ls = leaves(tiled.layout, {})
+      for _, l in ipairs(ls) do
+        if l.block_id == ctx.block_id then list = ls end
+      end
+    end
+  end
+  if not list or #list < 2 then return end
+  local me
+  for _, l in ipairs(list) do if l.block_id == ctx.block_id then me = l end end
+  local eps = 1e-6
+  local horiz = (dir == "left" or dir == "right")
+  -- position along the travel axis, and overlap on the other axis
+  local function pos(r) return horiz and r[1] or r[2] end
+  local function size(r) return horiz and r[3] or r[4] end
+  local function lat(r) return horiz and r[2] or r[1] end
+  local function latsize(r) return horiz and r[4] or r[3] end
+  local fwd = (dir == "right" or dir == "down")
+  local function overlap(a, b)
+    return math.min(lat(a) + latsize(a), lat(b) + latsize(b)) - math.max(lat(a), lat(b))
+  end
+  local best, bestkey, wrap, wrapkey
+  for _, l in ipairs(list) do
+    if l ~= me and overlap(me.rect, l.rect) > eps then
+      local d = fwd and (pos(l.rect) - (pos(me.rect) + size(me.rect))) or (pos(me.rect) - (pos(l.rect) + size(l.rect)))
+      if d > -eps then
+        if not best or d < bestkey - eps then best, bestkey = l, d end
+      end
+      -- wrap target: the farthest pane on the opposite edge
+      local edge = fwd and pos(l.rect) or -(pos(l.rect) + size(l.rect))
+      if not wrap or edge < wrapkey - eps then wrap, wrapkey = l, edge end
+    end
+  end
+  local target = best or wrap
+  if target then
+    rex.session.focus_block{ session_id = ctx.session_id, block_id = target.block_id }
+  else
+    -- nothing shares this row/column (e.g. left/right with panes stacked): go in pane order
+    rex.call(fwd and "session.focus_next_pane" or "session.focus_previous_pane", { session_id = ctx.session_id })
+  end
+end
+
+for _, d in ipairs({ "left", "right", "up", "down" }) do
+  rex.action{
+    name = "focus_wrap_" .. d, title = "Focus Pane " .. d .. " (wrap)",
+    run = function(ctx) focus_wrap(ctx, d) end,
+  }
+end
+
 -- Repeated per exclusive mode so it keeps working inside them.
 for _, prefix in ipairs({ "", "resize/", "pane/", "move/" }) do
   rex.bind(prefix .. "alt+cmd+up", "client.tab.previous")
   rex.bind(prefix .. "alt+cmd+down", "client.tab.next")
-  rex.bind(prefix .. "cmd+left", "pane.focus", { direction = "left" })
-  rex.bind(prefix .. "cmd+right", "pane.focus", { direction = "right" })
-  rex.bind(prefix .. "cmd+up", "pane.focus", { direction = "up" })
-  rex.bind(prefix .. "cmd+down", "pane.focus", { direction = "down" })
+  for _, d in ipairs({ "left", "right", "up", "down" }) do
+    rex.bind(prefix .. "alt+" .. d, "focus_wrap_" .. d)
+  end
 end
 
 -- Locked mode bindings
