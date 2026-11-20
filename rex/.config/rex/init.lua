@@ -64,7 +64,7 @@ rex.bind("alt+l", "pane.focus", { direction = "right" })
 rex.bind("alt+j", "pane.focus", { direction = "down" })
 rex.bind("alt+k", "pane.focus", { direction = "up" })
 
--- Simplified navigation: option+cmd+up/down = tabs, option+arrows = panes by screen direction,
+-- Simplified navigation: option+cmd+up/down = tabs, cmd+arrows = panes by screen direction,
 -- wrapping to the opposite edge when there is no pane that way.
 local function leaves(node, out)
   if node.block_id then out[#out + 1] = node
@@ -136,7 +136,7 @@ for _, prefix in ipairs({ "", "resize/", "pane/", "move/" }) do
   rex.bind(prefix .. "alt+cmd+up", "client.tab.previous")
   rex.bind(prefix .. "alt+cmd+down", "client.tab.next")
   for _, d in ipairs({ "left", "right", "up", "down" }) do
-    rex.bind(prefix .. "alt+" .. d, "focus_wrap_" .. d)
+    rex.bind(prefix .. "cmd+" .. d, "focus_wrap_" .. d)
   end
 end
 
